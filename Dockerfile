@@ -8,4 +8,4 @@ WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt
 RUN pip install -e .
-CMD ["/app/scripts/run-demo.sh", "image_bbox"]
+CMD ["/app/scripts/run.sh"]
