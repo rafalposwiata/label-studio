@@ -3,7 +3,7 @@ FROM python:3.6-slim
 WORKDIR /app
 
 # Copy and install requirements.txt first for caching
-COPY backend/requirements.txt /app/backend/
+COPY requirements.txt /app/backend/
 RUN pip install -r backend/requirements.txt
 
 
