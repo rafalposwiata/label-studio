@@ -3,4 +3,4 @@ build:
     web: Dockerfile
 
 run:
-  web: "/app/scripts/run-demo.sh image_bbox"
+  web: "/app/scripts/run.sh"
