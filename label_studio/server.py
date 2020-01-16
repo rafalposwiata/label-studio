@@ -30,7 +30,7 @@ from label_studio.utils.misc import (
     exception_treatment, log_config, log, config_line_stripped,
     get_config_templates, iter_config_templates
 )
-from .project import Project
+from label_studio.project import Project
 
 logger = logging.getLogger(__name__)
 
