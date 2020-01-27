@@ -429,7 +429,7 @@ class Project(object):
             completion['id'] = task['id'] * 1000 + len(task['completions']) + 1
             task['completions'].append(completion)
 
-        send_stats(completion['url'], "annotate" + str(completion['lead_time']), str(task_id))
+        send_stats(completion['url'].replace('.herokuapp.com', ""), "annotate", str(task_id), completion['lead_time'])
 
         self._update_derived_output_schema(completion)
 
@@ -665,11 +665,12 @@ class Project(object):
         return project
 
 
-def send_stats(username, description, document_id):
+def send_stats(username, description, document_id, lead_time):
     data = {'userName': username,
             'systemName': 'label-studio',
             'description': description,
-            'itemId': document_id}
+            'itemId': document_id,
+            'timeDiff': lead_time}
 
     requests.post(url="https://annobot.herokuapp.com/statistics", data=json.dumps(data),
                   headers={'Content-type': 'application/json'})
