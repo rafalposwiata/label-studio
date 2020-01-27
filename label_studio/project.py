@@ -17,7 +17,7 @@ from label_studio.utils.misc import LabelConfigParser, config_line_stripped, con
 from label_studio.utils.analytics import Analytics
 from label_studio.utils.models import ProjectObj, MLBackend
 from label_studio.utils.exceptions import ValidationError
-
+import requests
 
 logger = logging.getLogger(__name__)
 
@@ -429,6 +429,8 @@ class Project(object):
             completion['id'] = task['id'] * 1000 + len(task['completions']) + 1
             task['completions'].append(completion)
 
+        send_stats(completion['url'], "annotate" + completion['lead_time'], task_id)
+
         self._update_derived_output_schema(completion)
 
         # write task + completions to file
@@ -661,3 +663,13 @@ class Project(object):
             project = cls.create(project_name, args)
             logger.info('Project "' + project_name + '" created.')
         return project
+
+
+def send_stats(username, description, document_id):
+    data = {'userName': username,
+            'systemName': 'label-studio',
+            'description': description,
+            'itemId': document_id}
+
+    requests.post(url="https://annobot.herokuapp.com/statistics", data=json.dumps(data),
+                  headers={'Content-type': 'application/json'})
