@@ -429,7 +429,7 @@ class Project(object):
             completion['id'] = task['id'] * 1000 + len(task['completions']) + 1
             task['completions'].append(completion)
 
-        send_stats(completion['url'], "annotate" + completion['lead_time'], task_id)
+        send_stats(completion['url'], "annotate" + str(completion['lead_time']), str(task_id))
 
         self._update_derived_output_schema(completion)
 
