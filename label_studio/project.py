@@ -668,7 +668,7 @@ class Project(object):
 def send_stats(username, description, document_id, lead_time):
     pref_and_number = username.split('-')
     data = {'userName': pref_and_number[1],
-            'systemName': 'label-studio' + '_mob' if 'mob' in pref_and_number[0] else '',
+            'systemName': 'label-studio' + ('_mob' if 'mob' in pref_and_number[0] else ''),
             'description': description,
             'itemId': document_id,
             'timeDiff': lead_time}
